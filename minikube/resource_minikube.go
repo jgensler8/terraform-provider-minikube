@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	b64 "encoding/base64"
 
 	"github.com/blang/semver"
 	"github.com/hashicorp/terraform/helper/schema"
@@ -218,6 +219,21 @@ Valid components are: kubelet, apiserver, controller-manager, etcd, proxy, sched
 				Default:     "ahci-hd",
 				ForceNew:    true,
 				Optional:    true,
+			},
+			"client_certificate": {
+				Type:        schema.TypeString,
+				Description: "Base64 encoded public certificate used by clients to authenticate to the cluster endpoint.",
+				Computed:    true,
+			},
+			"client_key": {
+				Type:        schema.TypeString,
+				Description: "Base64 encoded private key used by clients to authenticate to the cluster endpoint.",
+				Computed:    true,
+			},
+			"cluster_ca_certificate": {
+				Type:        schema.TypeString,
+				Description: "Base64 encoded public certificate that is the root of trust for the cluster.",
+				Computed:    true,
 			},
 		},
 	}
@@ -453,10 +469,7 @@ func resourceMinikubeCreate(d *schema.ResourceData, meta interface{}) error {
 	kubeHost = strings.Replace(kubeHost, ":2376", ":"+strconv.Itoa(pkgutil.APIServerPort), -1)
 
 	log.Println("Setting up kubeconfig...")
-	// setup kubeconfig
-
 	kubeConfigFile := cmdutil.GetKubeConfigPath()
-
 	kubeCfgSetup := &kubeconfig.KubeConfigSetup{
 		ClusterName:          cfg.GetMachineName(),
 		ClusterServerAddress: kubeHost,
@@ -545,8 +558,37 @@ This can also be done automatically by setting the env var CHANGE_MINIKUBE_NONE_
 	if err != nil {
 		log.Println("Unable to load cached images from config file.")
 	}
+
 	d.SetId(machineName)
+
+	client_certificate, err := readFileAsBase64String(kubeCfgSetup.ClientCertificate)
+	if err != nil {
+		log.Printf("Failed to read client_certificate (%s)", kubeCfgSetup.ClientCertificate)
+		return err
+	}
+	client_key, err := readFileAsBase64String(kubeCfgSetup.ClientKey)
+	if err != nil {
+		log.Printf("Failed to read client_key (%s)", kubeCfgSetup.ClientKey)
+		return err
+	}
+	cluster_ca_certificate, err := readFileAsBase64String(kubeCfgSetup.CertificateAuthority)
+	if err != nil {
+		log.Printf("Failed to read cluster_ca_certificate (%s)", kubeCfgSetup.CertificateAuthority)
+		return err
+	}
+
+	d.Set("client_certificate", client_certificate)
+	d.Set("client_key", client_key)
+	d.Set("cluster_ca_certificate", cluster_ca_certificate)
 	return err
+}
+
+func readFileAsBase64String(path string) (string, error) {
+	file, err := ioutil.ReadFile(path)
+	if err != nil {
+		return "", err
+	}
+	return b64.StdEncoding.EncodeToString(file), nil
 }
 
 func resourceMinikubeDelete(d *schema.ResourceData, _ interface{}) error {
