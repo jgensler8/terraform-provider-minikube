@@ -235,6 +235,11 @@ Valid components are: kubelet, apiserver, controller-manager, etcd, proxy, sched
 				Description: "Base64 encoded public certificate that is the root of trust for the cluster.",
 				Computed:    true,
 			},
+			"endpoint": {
+				Type:        schema.TypeString,
+				Description: "Endpoint that can be used to reach API server",
+				Computed:    true,
+			},
 		},
 	}
 }
@@ -580,6 +585,7 @@ This can also be done automatically by setting the env var CHANGE_MINIKUBE_NONE_
 	d.Set("client_certificate", client_certificate)
 	d.Set("client_key", client_key)
 	d.Set("cluster_ca_certificate", cluster_ca_certificate)
+	d.Set("endpoint", kubeHost)
 	return err
 }
 

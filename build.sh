@@ -2,7 +2,7 @@
 
 set -e
 
-RELEASE=v0.1.0
+RELEASE=v0.2.0
 RELEASE_DIR=releases
 if [ -d "${RELEASE_DIR}" ] ; then
     rm -rf "${RELEASE_DIR}"
