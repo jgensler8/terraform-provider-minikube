@@ -31,17 +31,11 @@ provider "minikube" {
 Building and Testing The Provider
 ---------------------
 
-You will need `glide` and `gpgme` installed.
+You will need go 1.11+ installed to use go modules.
 
-```
-brew install glide
-brew install gpgme
-```
 
 ```bash
 # Build
-go get github.com/jgensler8/terraform-provider-minikube
-glide install [--strip-vendor]
 go build -o example/plugins/terraform-provider-minikube
 # Test
 cd example
