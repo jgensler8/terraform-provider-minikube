@@ -18,7 +18,6 @@ import (
 	"github.com/docker/machine/libmachine/state"
 	"k8s.io/minikube/cmd/minikube/cmd"
 	cmdutil "k8s.io/minikube/cmd/util"
-	"k8s.io/minikube/pkg/minikube/bootstrapper"
 	"k8s.io/minikube/pkg/minikube/cluster"
 	cmdUtil "k8s.io/minikube/cmd/util"
 	cfg "k8s.io/minikube/pkg/minikube/config"
@@ -365,7 +364,7 @@ func resourceMinikubeCreate(d *schema.ResourceData, meta interface{}) error {
 	//	validateK8sVersion(k8sVersion)
 	//}
 
-	config := cluster.MachineConfig{
+	config := cfg.MachineConfig{
 		MinikubeISO:         isoURL,
 		Memory:              memory,
 		CPUs:                cpus,
@@ -423,7 +422,7 @@ func resourceMinikubeCreate(d *schema.ResourceData, meta interface{}) error {
 		}
 	}
 
-	kubernetesConfig := bootstrapper.KubernetesConfig{
+	kubernetesConfig := cfg.KubernetesConfig{
 		KubernetesVersion:      selectedKubernetesVersion,
 		NodeIP:                 ip,
 		NodeName:               cfg.GetMachineName(),
@@ -444,7 +443,7 @@ func resourceMinikubeCreate(d *schema.ResourceData, meta interface{}) error {
 	}
 
 	// Write profile cluster configuration to file
-	clusterConfig := cluster.Config{
+	clusterConfig := cfg.Config{
 		MachineConfig:    config,
 		KubernetesConfig: kubernetesConfig,
 	}
@@ -624,8 +623,8 @@ func resourceMinikubeDelete(d *schema.ResourceData, _ interface{}) error {
 	return nil
 }
 
-func loadConfigFromFile(profile string) (cluster.Config, error) {
-	var cc cluster.Config
+func loadConfigFromFile(profile string) (cfg.Config, error) {
+	var cc cfg.Config
 
 	profileConfigFile := constants.GetProfileFile(profile)
 
@@ -646,7 +645,7 @@ func loadConfigFromFile(profile string) (cluster.Config, error) {
 
 // saveConfig saves profile cluster configuration in
 // $MINIKUBE_HOME/profiles/<profilename>/config.json
-func saveConfig(clusterConfig cluster.Config) error {
+func saveConfig(clusterConfig cfg.Config) error {
 	data, err := json.MarshalIndent(clusterConfig, "", "    ")
 	if err != nil {
 		return err
