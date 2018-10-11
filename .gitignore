@@ -32,3 +32,6 @@ website/vendor
 
 vendor/
 releases/
+
+*.zip
+*_amd64
