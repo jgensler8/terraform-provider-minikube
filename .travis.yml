@@ -6,7 +6,7 @@ deploy:
   api_key:
     secure: HNzRiN6I8lLNIJy1WDtRqebusIi0zUONyoUQIIyPQJ0xQB4NkJ5HFdU0o1YIOsfPg+FaARTcz+H27HKtAtRtlbD1B1syj4LdGoQ0GcR0Ew0GBLKd/LtxcnDXR4/3/iVZ9C3rJ4YosOSL9pCm96P19AqVaEIUHPqRUOJznlvoznRFbzpJGuV9uROsRGee7heVuttOasEDFF3I3Z2ZqiY6f2Fg/1PXu0eNUlY+FEE2KTNOpwSCXAIAkjBB5sfmU4hvl2W6ZSaPweDJ+AxIiqDqb0hL08/5ucUNfoRl8QAp+Wyg3MHV5QJDDHLln6bJ76HzjT6/dWdOzZnaKqGkKAmfumgG0+UvNiZztN0sa9QMYpNi72LsZ8LTCbVy1jTBq+yCltNmJH/Hcsxhgnp2rWWN1Vji+38kmwLhmycppHelccKNkvSTrxuQaHLO5MIpwJW3zl5mIl+qZw6kol//pDPjDclDZQuXrcNdfRkWpoNpcVgd7fxApA+7omjWdwImdJDzG4iSQbZzy24nYIwMuJJdUEP1s3Go6IZeQPrNgHALiL13TJfKlLW70oQC0CAvz2DLjG5wThoutEQCvTMYxkq11eLeQ0entKhQ54APLisHz9Ks7VdeNN1tTHesVqwanM8lXhKJe0s3br04bQDl/37K5DkCb8agf81pgn80o+xVzp4=
   file_glob: true
-  file: "*.zip"
+  file: releases/*
+  skip_cleanup: true
   on:
-    repo: jgensler8/terraform-provider-minikube
-    branch: master
+    tags: true
