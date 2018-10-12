@@ -29,7 +29,7 @@ import (
 )
 
 var (
-	clusterBootstrapper string = "localkube"
+	clusterBootstrapper string = "kubeadm"
 	profile string = "minikube"
 )
 
