@@ -304,5 +304,5 @@ k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede h1:YOWlONzJUq456SnNYPcK/o
 k8s.io/kube-openapi v0.0.0-20180216212618-50ae88d24ede/go.mod h1:BXM9ceUBTj2QnfH2MK1odQs778ajze1RxcmP6S8RVVc=
 k8s.io/kubernetes v1.11.3 h1:eO7Ia/0gVOFphtPiIt3LUKWRsQJpOk8LucurvvbMzGA=
 k8s.io/kubernetes v1.11.3/go.mod h1:ocZa8+6APFNC2tX1DZASIbocyYT5jHzqFVsY5aoB7Jk=
-k8s.io/minikube v0.30.0 h1:21fNnItY6aCDADy46c/O31aUd42WpW9nI6y36d4Jpso=
+k8s.io/minikube v0.30.0 h1:1Nbd5wVAIFL7aQySq6nNxUgk4Wc9u0v79oRPu3p/9oY=
 k8s.io/minikube v0.30.0/go.mod h1:H+QXQu+JESf82j7aynF6ELHqC+oGv5ZDN7ZPw4qQDlo=
