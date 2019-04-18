@@ -11,7 +11,7 @@ deps:
 	go get -d -v ./...
 
 assets_hack:
-	make -C ${GOPATH}/src/k8s.io/minikube pkg/minikube/assets/assets.go
+	make -C ${GOPATH}/pkg/mod/k8s.io/minikube pkg/minikube/assets/assets.go
 
 clean:
 	rm -rf "${RELEASE_DIR}"
