@@ -1,17 +1,20 @@
-RELEASE_VERSION=v0.4.0
+RELEASE_VERSION=v0.5.0
 RELEASE_DIR=releases
 GOARCH?=amd64
 BINARY=terraform-provider-minikube_${RELEASE_VERSION}_x4
 LINUX_RELEASE=terraform-provider-minikube_${RELEASE_VERSION}_linux_${GOARCH}
 MAC_RELEASE=terraform-provider-minikube_${RELEASE_VERSION}_darwin_${GOARCH}
+MINIKUBE_VERSION=v0.30.0
 
 default: deps assets_hack linux mac stage
 
 deps:
-	go get -d -v ./...
+	go get -d
 
 assets_hack:
-	make -C ${GOPATH}/src/k8s.io/minikube pkg/minikube/assets/assets.go
+	chmod -R 777 ${GOPATH}/pkg/mod/k8s.io/minikube@${MINIKUBE_VERSION}
+	go get -u github.com/jteeuwen/go-bindata/...
+	go-bindata -nomemcopy -o ${GOPATH}/pkg/mod/k8s.io/minikube@${MINIKUBE_VERSION}/pkg/minikube/assets/assets.go -pkg assets ${GOPATH}/pkg/mod/k8s.io/minikube@${MINIKUBE_VERSION}/deploy/addons/...
 
 clean:
 	rm -rf "${RELEASE_DIR}"
