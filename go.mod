@@ -73,6 +73,7 @@ require (
 	github.com/johanneswuerbach/nfsexports v0.0.0-20151229182559-a9068f3f0daa
 	github.com/joyent/triton-go v0.0.0-20180628001255-830d2b111e62 // indirect
 	github.com/json-iterator/go v1.1.5
+	github.com/jteeuwen/go-bindata v3.0.7+incompatible // indirect
 	github.com/kardianos/osext v0.0.0-20170510131534-ae77be60afb1 // indirect
 	github.com/keybase/go-crypto v0.0.0-20180920171116-0b2a91ace448 // indirect
 	github.com/kr/fs v0.0.0-20131111012553-2788f0dbd169
