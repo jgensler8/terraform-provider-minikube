@@ -6,7 +6,7 @@ go:
 jobs:
   include:
   - stage: test
-    script: cron.sh
+    script: sh cron.sh
 deploy:
   provider: releases
   api_key:
